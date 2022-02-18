@@ -65,6 +65,39 @@ const PlayerBoard = ({ state}: any) => {
         xOffset = xOffset + tileShadowWidth;
         yOffset = yOffset - tileShadowHeight;
         const layer: number[][] = state.layout[l];
+
+        //Iteriraj kroz sve redove u layoutu
+        for(let r: number = 0; r < layer.length; r++){
+            const row: number[] = layer[r];
+            //kroz stupce
+            for(let c: number = row.length; c >= 0; c--){
+                let tileVal: number = row[c];
+
+                if(tileVal > 0){
+                    //izracunaj poziciju baziranu na virtualnom 15x9 gridu, uzimajuci u obzire offsetove 
+                    //za preklapanje sjena i promjene da se makne grid s rubova containera
+
+                    const xLoc: number = (( c * tileWidth) - (c * tileShadowWidth)) + xOffset + xAdjust;
+                    const yLoc: number = ((r * tileHeight) - (r * tileShadowHeight)) + yOffset + yAdjust; 
+
+                    //plocica stil
+                    const syle: CSSProperties = {
+                        position : "absolute",
+                        left : `${xLoc}px`,
+                        top : `${yLoc}px`
+                    };
+
+                    //plocica highlight ako je odabrana
+                    let className: string = "";
+                    if(tileVal > 1000){
+                        className = "highlightTile";
+                        tileVal = tileVal - 1000;
+                    }
+
+                    //renderaj prikladni img tag
+                }
+            }
+        }
     }
 
 }
